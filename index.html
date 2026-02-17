@@ -1,55 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>SmartWave Tech</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: white;
-            text-align: center;
-        }
-        header {
-            padding: 60px 20px;
-        }
-        h1 {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 18px;
-        }
-        .btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 25px;
-            background: #00c6ff;
-            color: black;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-        }
-        footer {
-            margin-top: 60px;
-            padding: 20px;
-            background: rgba(0,0,0,0.3);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartWaveTech27</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00c3ff">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+}
+
+body{
+  height:100vh;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+.container{
+  text-align:center;
+  animation:fadeIn 1.5s ease;
+}
+
+.logo{
+  width:250px;
+  max-width:90%;
+  filter:drop-shadow(0 0 25px #00c3ff);
+  animation:float 3s ease-in-out infinite alternate;
+}
+
+h1{
+  color:white;
+  margin-top:20px;
+  font-size:28px;
+  letter-spacing:2px;
+}
+
+.tagline{
+  color:#00c3ff;
+  margin-top:8px;
+  font-size:14px;
+  letter-spacing:3px;
+}
+
+button{
+  margin-top:30px;
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(90deg,#00c3ff,#0088ff);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 20px #00c3ff;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:scale(0.9);}
+  to{opacity:1; transform:scale(1);}
+}
+
+@keyframes float{
+  from{transform:translateY(-10px);}
+  to{transform:translateY(10px);}
+}
+</style>
 </head>
+
 <body>
 
-<header>
-    <h1>SmartWave Tech</h1>
-    <p>Innovating the Future with Technology</p>
-    <a href="#" class="btn">Contact Us</a>
-</header>
+<div class="container">
+  <img src="logo.png" class="logo">
+  <h1>SmartWaveTech27</h1>
+  <div class="tagline">INNOVATING THE FUTURE</div>
+  <button onclick="enterApp()">ENTER APP</button>
+</div>
 
-<footer>
-    <p>© 2026 SmartWave Tech. All Rights Reserved.</p>
-</footer>
+<script>
+function enterApp(){
+  alert("App Ready 🚀 Next we build dashboard.");
+}
+
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
 
 </body>
 </html>
