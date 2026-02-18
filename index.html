@@ -1,102 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SmartWaveTech27</title>
-
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#00c3ff">
+<title>SmartWaveTech AI</title>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Segoe UI, sans-serif;
-}
-
 body{
-  height:100vh;
-  background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#0a0f1c;
+    color:white;
 }
-
+header{
+    padding:20px;
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+    color:#00ff88;
+}
 .container{
-  text-align:center;
-  animation:fadeIn 1.5s ease;
+    max-width:600px;
+    margin:auto;
+    padding:20px;
 }
-
-.logo{
-  width:250px;
-  max-width:90%;
-  filter:drop-shadow(0 0 25px #00c3ff);
-  animation:float 3s ease-in-out infinite alternate;
+textarea,input{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border-radius:8px;
+    border:none;
 }
-
-h1{
-  color:white;
-  margin-top:20px;
-  font-size:28px;
-  letter-spacing:2px;
-}
-
-.tagline{
-  color:#00c3ff;
-  margin-top:8px;
-  font-size:14px;
-  letter-spacing:3px;
-}
-
 button{
-  margin-top:30px;
-  padding:12px 30px;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(90deg,#00c3ff,#0088ff);
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 0 20px #00c3ff;
-  transition:0.3s;
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    background:#00ff88;
+    color:black;
+    cursor:pointer;
 }
-
-button:hover{
-  transform:scale(1.05);
+.box{
+    background:#111827;
+    padding:15px;
+    border-radius:10px;
+    margin-top:15px;
 }
-
-@keyframes fadeIn{
-  from{opacity:0; transform:scale(0.9);}
-  to{opacity:1; transform:scale(1);}
+.hidden{
+    display:none;
 }
-
-@keyframes float{
-  from{transform:translateY(-10px);}
-  to{transform:translateY(10px);}
+footer{
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+    border-top:1px solid #222;
 }
 </style>
 </head>
-
 <body>
 
+<header>SmartWaveTech 🤖</header>
+
 <div class="container">
-  <img src="logo.png" class="logo">
-  <h1>SmartWaveTech27</h1>
-  <div class="tagline">INNOVATING THE FUTURE</div>
-  <button onclick="enterApp()">ENTER APP</button>
+
+<h3>Omba Huduma</h3>
+<textarea id="request" placeholder="Andika huduma unayotaka..."></textarea>
+<button onclick="checkPayment()">Generate</button>
+
+<div id="paymentSection" class="box hidden"></div>
+
+<div id="result" class="box hidden">
+    <h3>Huduma Yako ✅</h3>
+    <p id="aiOutput"></p>
 </div>
 
+<hr>
+
+<h3>📩 Tuma Ujumbe Kwa Admin</h3>
+<form action="https://formspree.io/f/YOUR_ID" method="POST">
+    <input type="text" name="name" placeholder="Jina lako" required>
+    <input type="email" name="email" placeholder="Email yako" required>
+    <textarea name="message" placeholder="Andika ujumbe..." required></textarea>
+    <button type="submit">Tuma Message</button>
+</form>
+
+</div>
+
+<footer>
+©2026 SmartWaveTech | Me
+</footer>
+
 <script>
-function enterApp(){
-  alert("App Ready 🚀 Next we build dashboard.");
+
+let generatedCode = "";
+
+function detectService(text){
+    text = text.toLowerCase();
+
+    if(text.includes("website")){
+        return {type:"Website Service", price:3500};
+    }
+    if(text.includes("app")){
+        return {type:"App Service", price:3000};
+    }
+    if(text.includes("bot")){
+        return {type:"Bot Service", price:3000};
+    }
+    if(text.includes("vpn")){
+        return {type:"VPN Config Service", price:2500};
+    }
+    if(text.includes("logo") || text.includes("design") || text.includes("photo") || text.includes("video") || text.includes("audio")){
+        return {type:"Graphic Design Service", price:2500};
+    }
+
+    return {type:"Custom Service", price:3000};
 }
 
-if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("service-worker.js");
+function generateCode(){
+    return "SW" + Math.floor(1000 + Math.random() * 9000);
 }
+
+function checkPayment(){
+    let request = document.getElementById("request").value;
+
+    if(request.trim() === ""){
+        alert("Andika huduma kwanza!");
+        return;
+    }
+
+    let service = detectService(request);
+    generatedCode = generateCode();
+
+    document.getElementById("paymentSection").classList.remove("hidden");
+    document.getElementById("paymentSection").innerHTML = `
+        <h3>${service.type}</h3>
+        <p>Bei: Tsh ${service.price}</p>
+        <p>Lipa kupitia namba: <strong>0611378027</strong></p>
+        <p>Baada ya malipo tumia Payment Code hii:</p>
+        <h2>${generatedCode}</h2>
+        <input type="text" id="paymentCode" placeholder="Ingiza Code">
+        <button onclick="unlockService()">Thibitisha</button>
+    `;
+}
+
+function unlockService(){
+    let userCode = document.getElementById("paymentCode").value;
+
+    if(userCode === generatedCode){
+        document.getElementById("result").classList.remove("hidden");
+
+        let userRequest = document.getElementById("request").value;
+
+        document.getElementById("aiOutput").innerText =
+        "AI imetengeneza structure ya: " + userRequest +
+        " (Hapa ndipo generator halisi itaongezwa kwenye SaaS version)";
+    } else {
+        alert("Code sio sahihi!");
+    }
+}
+
 </script>
 
 </body>
